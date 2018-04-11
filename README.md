@@ -17,7 +17,7 @@ Subsequently, the stored OTU representative sequence information was extracted f
 ## 3.) Representative sequence classification using Silva128
 Representative sequences for each deblurred OTU was classified using mothur v.1.39.5 https://www.mothur.org/wiki/Download_mothur and silva128 https://www.mothur.org/wiki/Silva_reference_files#Release_128
 
-__First just a simple classification without chimera search and removal of Mitochondria-Chloroplast-Eukaryota-unknown sequences__
+__a)__ First just a simple classification without chimera search and removal of Mitochondria-Chloroplast-Eukaryota-unknown sequences
 
 *classify.seqs(fasta=final.withtax.v12.fa, template=silva.nr_v128.align, taxonomy=silva.nr_v128.tax, cutoff=80, probs=T, processors=6)*
 
@@ -28,12 +28,12 @@ taxlevel	rankID	taxon	daughterlevels	total
 1	0.3	Eukaryota	13	915
 1	0.4	unknown	1	17539
 
-__Chimera search__
-__creating name file to use EMP sequences as template for chimera search__
+__b)__ Chimera search
+Creating name file to use EMP sequences as template for chimera search
 
 *unique.seqs(fasta=final.withtax.v12.fa)*
 
-__Chimera search and removal__
+Chimera search and removal
 
 *chimera.vsearch(fasta=final.withtax.v12.fa, name=final.withtax.v12.names, dereplicate=t, processors=6)*
 
@@ -57,8 +57,8 @@ and 0 (0.0%) borderline sequences in 83908 total sequences.
 
 It took 27 secs to check 83908 sequences. 0 chimeras were found.
 
-__removal of certain sequences__
-__removing Mitochondria-Chloroplast-Eukaryota-unknown sequences from seq file__
+__c)__ emoval of certain sequences
+Removing Mitochondria-Chloroplast-Eukaryota-unknown sequences from seq file
 
 *remove.lineage(fasta=final.withtax.v12.fa, taxonomy=final.withtax.v12.nr_v128.wang.taxonomy, taxon=Mitochondria-Chloroplast-Eukaryota-unknown)*
 
@@ -66,8 +66,8 @@ Output File Names:
 final.withtax.v12.nr_v128.wang.pick.taxonomy
 final.withtax.v12.pick.fa
 
-__final.withtax.v12.fa	83908 OTUs__
-__final.withtax.v12.pick.fa	64424 OTUS__
+final.withtax.v12.fa	83908 OTUs
+final.withtax.v12.pick.fa	64424 OTUS
 
 
 ## 4.) Creating the local spongeemp BLAST database
