@@ -1,4 +1,4 @@
-### spongeEMP_BLASTdb 1.0 ###
+# spongeEMP_BLASTdb 1.0
 SpongeEMP deblurred subOTUs BLAST database
 
 
@@ -9,7 +9,7 @@ The sponge microbiome project (see https://academic.oup.com/gigascience/article/
 ## 2.) Biom to tab separeted text file transformation
 The biom file was converted to a tsv file:
 
-biom convert -i final.withtax.biom -o final.withtax.tsv --to-tsv --header-key taxonomy
+*biom convert -i final.withtax.biom -o final.withtax.tsv --to-tsv --header-key taxonomy*
 
 Subsequently, the stored OTU representative sequence information was extracted from this text file and stored in a separated fasta file "final.withtax.v12.fa"
 
@@ -17,9 +17,9 @@ Subsequently, the stored OTU representative sequence information was extracted f
 ## 3.) Representative sequence classification using Silva128
 Representative sequences for each deblurred OTU was classified using mothur v.1.39.5 https://www.mothur.org/wiki/Download_mothur and silva128 https://www.mothur.org/wiki/Silva_reference_files#Release_128
 
-# first just a simple classification without chimera search and removal of Mitochondria-Chloroplast-Eukaryota-unknown sequences
+First just a simple classification without chimera search and removal of Mitochondria-Chloroplast-Eukaryota-unknown sequences
 
-classify.seqs(fasta=final.withtax.v12.fa, template=silva.nr_v128.align, taxonomy=silva.nr_v128.tax, cutoff=80, probs=T, processors=6)
+*classify.seqs(fasta=final.withtax.v12.fa, template=silva.nr_v128.align, taxonomy=silva.nr_v128.tax, cutoff=80, probs=T, processors=6)*
 
 taxlevel	rankID	taxon	daughterlevels	total
 0	0	Root	4	83908
@@ -28,12 +28,12 @@ taxlevel	rankID	taxon	daughterlevels	total
 1	0.3	Eukaryota	13	915
 1	0.4	unknown	1	17539
 
-# chimera search #
-# creating name file to use EMP sequences as template for chimera search 
-unique.seqs(fasta=final.withtax.v12.fa)
+**Chimera search**
+**creating name file to use EMP sequences as template for chimera search**
+*unique.seqs(fasta=final.withtax.v12.fa)*
 
-# chimera search
-chimera.vsearch(fasta=final.withtax.v12.fa, name=final.withtax.v12.names, dereplicate=t, processors=6)
+**chimera search**
+*chimera.vsearch(fasta=final.withtax.v12.fa, name=final.withtax.v12.names, dereplicate=t, processors=6)*
 
 Using 6 processors.
 Checking sequences from final.withtax.v12.fa ...
@@ -55,17 +55,17 @@ and 0 (0.0%) borderline sequences in 83908 total sequences.
 
 It took 27 secs to check 83908 sequences. 0 chimeras were found.
 
-# removal of certain sequences #
-# removing Mitochondria-Chloroplast-Eukaryota-unknown sequences from seq file
+**removal of certain sequences**
+**removing Mitochondria-Chloroplast-Eukaryota-unknown sequences from seq file**
 
-remove.lineage(fasta=final.withtax.v12.fa, taxonomy=final.withtax.v12.nr_v128.wang.taxonomy, taxon=Mitochondria-Chloroplast-Eukaryota-unknown)
+*remove.lineage(fasta=final.withtax.v12.fa, taxonomy=final.withtax.v12.nr_v128.wang.taxonomy, taxon=Mitochondria-Chloroplast-Eukaryota-unknown)*
 
 Output File Names: 
 final.withtax.v12.nr_v128.wang.pick.taxonomy
 final.withtax.v12.pick.fa
 
-# final.withtax.v12.fa	83908 OTUs
-# final.withtax.v12.pick.fa	64424 OTUS
+**final.withtax.v12.fa	83908 OTUs**
+**final.withtax.v12.pick.fa	64424 OTUS**
 
 
 ## 4.) Creating the local spongeemp BLAST database
@@ -75,5 +75,5 @@ b) Copy the fasta file into the ncbi-blast-x.x.x bin folder.
 
 c) Open your terminal and go to the bin folder. Use the following command to create the spongeemp nucleotide BLAST database:
 
-makeblastdb -in final.withtax.v12.pick.fa -out DeblurV12PickOTUsSilva128 -dbtype 'nucl' -hash_index
+*makeblastdb -in final.withtax.v12.pick.fa -out DeblurV12PickOTUsSilva128 -dbtype 'nucl' -hash_index*
 
