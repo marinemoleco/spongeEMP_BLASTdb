@@ -1,5 +1,6 @@
 # How to cite
 This sponge EMP blast database has been created for a recent publication. If you use the database, please cite this article:
+
 Dat TTH, Steinert G, Thi Kim Cuc N, Smidt H, Sipkema D. (2018) Archaeal and bacterial diversity and community composition from 18 phylogenetically divergent sponge species in Vietnam. PeerJ 6:e4970 https://doi.org/10.7717/peerj.4970
 
 
